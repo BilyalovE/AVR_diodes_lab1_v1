@@ -1,0 +1,469 @@
+
+diodesAvr.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000218  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000004  00800060  00000218  000002ac  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800064  00800064  000002b0  2**0
+                  ALLOC
+  3 .debug_aranges 00000020  00000000  00000000  000002b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 00000093  00000000  00000000  000002d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000035f  00000000  00000000  00000363  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000018a  00000000  00000000  000006c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000002b8  00000000  00000000  0000084c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000080  00000000  00000000  00000b04  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000014a  00000000  00000000  00000b84  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000127  00000000  00000000  00000cce  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000048  00000000  00000000  00000df5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e8 e1       	ldi	r30, 0x18	; 24
+  68:	f2 e0       	ldi	r31, 0x02	; 2
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a4 36       	cpi	r26, 0x64	; 100
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a4 e6       	ldi	r26, 0x64	; 100
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a6 36       	cpi	r26, 0x66	; 102
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 be 00 	call	0x17c	; 0x17c <main>
+  8a:	0c 94 0a 01 	jmp	0x214	; 0x214 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <Init>:
+
+
+
+
+void Init(){
+DDRD = 0xFF; // порт D на вывод
+  92:	8f ef       	ldi	r24, 0xFF	; 255
+  94:	81 bb       	out	0x11, r24	; 17
+DDRB = 0x00; // порт В на ввод
+  96:	17 ba       	out	0x17, r1	; 23
+PORTB = 0xFF;  // включить подтягивающие резисторы порта В
+  98:	88 bb       	out	0x18, r24	; 24
+PORTD = 0xFF;
+  9a:	82 bb       	out	0x12, r24	; 18
+}
+  9c:	08 95       	ret
+
+0000009e <detect_buttons_in_delay>:
+
+
+char detect_buttons_in_delay(int delay)
+{
+	static char previous_port = 0xFF; // инициализация при запуске программы
+	int quant_count = delay / 10; /// рассчитываем количество 10мс квантов 
+  9e:	6a e0       	ldi	r22, 0x0A	; 10
+  a0:	70 e0       	ldi	r23, 0x00	; 0
+  a2:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <__divmodhi4>
+  a6:	9b 01       	movw	r18, r22
+  a8:	90 91 63 00 	lds	r25, 0x0063
+  ac:	40 e0       	ldi	r20, 0x00	; 0
+  ae:	50 e0       	ldi	r21, 0x00	; 0
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  b0:	e4 ec       	ldi	r30, 0xC4	; 196
+  b2:	f9 e0       	ldi	r31, 0x09	; 9
+  b4:	0e c0       	rjmp	.+28     	; 0xd2 <detect_buttons_in_delay+0x34>
+	// выдерживаем паузу по квантам
+	for (int quant_number = 0; quant_number < quant_count; ++quant_number)
+		{
+		// обычный способ регистрации нажатия кнопок
+		char current_port = PINB;	
+  b6:	66 b3       	in	r22, 0x16	; 22
+		char buttons =  ~current_port & previous_port;
+  b8:	86 2f       	mov	r24, r22
+  ba:	80 95       	com	r24
+  bc:	89 23       	and	r24, r25
+		previous_port = current_port;
+		if (buttons) // немедленно завершаем выполнение функции,
+  be:	19 f0       	breq	.+6      	; 0xc6 <detect_buttons_in_delay+0x28>
+  c0:	60 93 63 00 	sts	0x0063, r22
+  c4:	08 95       	ret
+  c6:	cf 01       	movw	r24, r30
+  c8:	01 97       	sbiw	r24, 0x01	; 1
+  ca:	f1 f7       	brne	.-4      	; 0xc8 <detect_buttons_in_delay+0x2a>
+char detect_buttons_in_delay(int delay)
+{
+	static char previous_port = 0xFF; // инициализация при запуске программы
+	int quant_count = delay / 10; /// рассчитываем количество 10мс квантов 
+	// выдерживаем паузу по квантам
+	for (int quant_number = 0; quant_number < quant_count; ++quant_number)
+  cc:	4f 5f       	subi	r20, 0xFF	; 255
+  ce:	5f 4f       	sbci	r21, 0xFF	; 255
+  d0:	96 2f       	mov	r25, r22
+  d2:	42 17       	cp	r20, r18
+  d4:	53 07       	cpc	r21, r19
+  d6:	7c f3       	brlt	.-34     	; 0xb6 <detect_buttons_in_delay+0x18>
+  d8:	90 93 63 00 	sts	0x0063, r25
+  dc:	80 e0       	ldi	r24, 0x00	; 0
+		_delay_ms(10); // квант 10 мс паузы
+}
+// сюда попадаем, если цикл выполнился до конца,
+
+return 0x00; // т.е. не было нажатий кнопок
+}
+  de:	08 95       	ret
+
+000000e0 <normal_mode>:
+
+
+char normal_mode(char buttons, char state) {
+  e0:	36 2f       	mov	r19, r22
+    // если активен режим MODE_NORMAL, эта функция вызывается раз в секунду
+    // результат функции - новое состояние
+
+    if (buttons & BUTTON_MODE_OFF) {
+  e2:	80 fd       	sbrc	r24, 0
+  e4:	33 e0       	ldi	r19, 0x03	; 3
+        state = MODE_OFF;
+    }
+    if (buttons & BUTTON_MODE_MANUAL) {
+  e6:	81 fd       	sbrc	r24, 1
+  e8:	32 e0       	ldi	r19, 0x02	; 2
+        state = MODE_MANUAL;
+    }
+    if (buttons & BUTTON_MODE_NIGHT) {
+  ea:	82 fd       	sbrc	r24, 2
+  ec:	31 e0       	ldi	r19, 0x01	; 1
+        state = MODE_NIGHT;
+    }
+    // переключаем сигналы светофора, пока находимся в этом режиме
+    static char diodes_index = 0;
+    PORTD = diodes_normal_mode[diodes_index]; 
+  ee:	80 91 65 00 	lds	r24, 0x0065
+  f2:	90 e0       	ldi	r25, 0x00	; 0
+  f4:	fc 01       	movw	r30, r24
+  f6:	e0 5a       	subi	r30, 0xA0	; 160
+  f8:	ff 4f       	sbci	r31, 0xFF	; 255
+  fa:	20 81       	ld	r18, Z
+  fc:	22 bb       	out	0x12, r18	; 18
+    diodes_index = (diodes_index + 1) % NORMAL_MODE_DIODE_COUNT;
+  fe:	01 96       	adiw	r24, 0x01	; 1
+ 100:	63 e0       	ldi	r22, 0x03	; 3
+ 102:	70 e0       	ldi	r23, 0x00	; 0
+ 104:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <__divmodhi4>
+ 108:	80 93 65 00 	sts	0x0065, r24
+    return state;
+}
+ 10c:	83 2f       	mov	r24, r19
+ 10e:	08 95       	ret
+
+00000110 <off_mode>:
+
+
+char off_mode(char buttons, char state) {
+    // если активен режим MODE_OFF, эта функция вызывается раз в секунду
+    if (buttons & BUTTON_MODE_OFF) {
+ 110:	80 fd       	sbrc	r24, 0
+ 112:	60 e0       	ldi	r22, 0x00	; 0
+        state = MODE_NORMAL; // переход в состояние
+    }
+	if (buttons & BUTTON_MODE_MANUAL) {
+ 114:	81 fd       	sbrc	r24, 1
+ 116:	62 e0       	ldi	r22, 0x02	; 2
+        state = MODE_MANUAL;
+    }
+    if (buttons & BUTTON_MODE_NIGHT) {
+ 118:	82 fd       	sbrc	r24, 2
+ 11a:	61 e0       	ldi	r22, 0x01	; 1
+        state = MODE_NIGHT;
+    }
+    PORTD = 0xFF; // гасим все диоды, пока находимся в этом состоянии
+ 11c:	8f ef       	ldi	r24, 0xFF	; 255
+ 11e:	82 bb       	out	0x12, r24	; 18
+    return state;
+}
+ 120:	86 2f       	mov	r24, r22
+ 122:	08 95       	ret
+
+00000124 <night_mode>:
+
+char night_mode(char buttons, char state) 
+{
+	if (buttons & BUTTON_MODE_OFF) {
+ 124:	80 fd       	sbrc	r24, 0
+ 126:	60 e0       	ldi	r22, 0x00	; 0
+        state = MODE_NORMAL;
+    }
+    if (buttons & BUTTON_MODE_MANUAL) {
+ 128:	81 fd       	sbrc	r24, 1
+ 12a:	62 e0       	ldi	r22, 0x02	; 2
+        state = MODE_MANUAL;
+    }
+	PORTD = diodes_normal_mode[1];
+ 12c:	80 91 61 00 	lds	r24, 0x0061
+ 130:	82 bb       	out	0x12, r24	; 18
+ 132:	80 e1       	ldi	r24, 0x10	; 16
+ 134:	97 e2       	ldi	r25, 0x27	; 39
+ 136:	29 e1       	ldi	r18, 0x19	; 25
+ 138:	30 e0       	ldi	r19, 0x00	; 0
+ 13a:	f9 01       	movw	r30, r18
+ 13c:	31 97       	sbiw	r30, 0x01	; 1
+ 13e:	f1 f7       	brne	.-4      	; 0x13c <night_mode+0x18>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 140:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 142:	d9 f7       	brne	.-10     	; 0x13a <night_mode+0x16>
+	_delay_ms(1000);
+	PORTD = 0xFF;
+ 144:	8f ef       	ldi	r24, 0xFF	; 255
+ 146:	82 bb       	out	0x12, r24	; 18
+	
+	return state;
+}
+ 148:	86 2f       	mov	r24, r22
+ 14a:	08 95       	ret
+
+0000014c <manual_mode>:
+
+
+char manual_mode(char buttons, char state) 
+{
+	if (buttons & BUTTON_MODE_OFF) {
+ 14c:	80 fd       	sbrc	r24, 0
+ 14e:	63 e0       	ldi	r22, 0x03	; 3
+        state = MODE_OFF;
+    }
+    if (buttons & BUTTON_MODE_NIGHT) {
+ 150:	82 fd       	sbrc	r24, 2
+ 152:	61 e0       	ldi	r22, 0x01	; 1
+        state = MODE_NIGHT;
+    }
+	
+	static char diodes_index = 0;
+	if (buttons & BUTTON_MODE_MANUAL_CONTROL) {
+ 154:	83 ff       	sbrs	r24, 3
+ 156:	10 c0       	rjmp	.+32     	; 0x178 <manual_mode+0x2c>
+		PORTD = diodes_normal_mode[diodes_index];
+ 158:	80 91 64 00 	lds	r24, 0x0064
+ 15c:	90 e0       	ldi	r25, 0x00	; 0
+ 15e:	fc 01       	movw	r30, r24
+ 160:	e0 5a       	subi	r30, 0xA0	; 160
+ 162:	ff 4f       	sbci	r31, 0xFF	; 255
+ 164:	20 81       	ld	r18, Z
+ 166:	22 bb       	out	0x12, r18	; 18
+		diodes_index = (diodes_index + 1) % NORMAL_MODE_DIODE_COUNT;
+ 168:	01 96       	adiw	r24, 0x01	; 1
+ 16a:	63 e0       	ldi	r22, 0x03	; 3
+ 16c:	70 e0       	ldi	r23, 0x00	; 0
+ 16e:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <__divmodhi4>
+ 172:	80 93 64 00 	sts	0x0064, r24
+ 176:	62 e0       	ldi	r22, 0x02	; 2
+		state = MODE_MANUAL;
+	}
+	return state;
+
+}
+ 178:	86 2f       	mov	r24, r22
+ 17a:	08 95       	ret
+
+0000017c <main>:
+
+
+
+
+int main() 
+{
+ 17c:	1f 93       	push	r17
+
+
+
+
+void Init(){
+DDRD = 0xFF; // порт D на вывод
+ 17e:	8f ef       	ldi	r24, 0xFF	; 255
+ 180:	81 bb       	out	0x11, r24	; 17
+DDRB = 0x00; // порт В на ввод
+ 182:	17 ba       	out	0x17, r1	; 23
+PORTB = 0xFF;  // включить подтягивающие резисторы порта В
+ 184:	88 bb       	out	0x18, r24	; 24
+PORTD = 0xFF;
+ 186:	82 bb       	out	0x12, r24	; 18
+ 188:	13 e0       	ldi	r17, 0x03	; 3
+{
+	Init();
+	
+	char state = MODE_OFF;
+    while (1) {
+        char buttons = detect_buttons_in_delay(300);
+ 18a:	8c e2       	ldi	r24, 0x2C	; 44
+ 18c:	91 e0       	ldi	r25, 0x01	; 1
+ 18e:	0e 94 4f 00 	call	0x9e	; 0x9e <detect_buttons_in_delay>
+        switch (state)
+ 192:	11 30       	cpi	r17, 0x01	; 1
+ 194:	59 f0       	breq	.+22     	; 0x1ac <main+0x30>
+ 196:	11 30       	cpi	r17, 0x01	; 1
+ 198:	28 f0       	brcs	.+10     	; 0x1a4 <main+0x28>
+ 19a:	12 30       	cpi	r17, 0x02	; 2
+ 19c:	59 f0       	breq	.+22     	; 0x1b4 <main+0x38>
+ 19e:	13 30       	cpi	r17, 0x03	; 3
+ 1a0:	a1 f7       	brne	.-24     	; 0x18a <main+0xe>
+ 1a2:	0c c0       	rjmp	.+24     	; 0x1bc <main+0x40>
+        {
+        case MODE_NORMAL:
+            state = normal_mode(buttons, state);
+ 1a4:	60 e0       	ldi	r22, 0x00	; 0
+ 1a6:	0e 94 70 00 	call	0xe0	; 0xe0 <normal_mode>
+ 1aa:	0b c0       	rjmp	.+22     	; 0x1c2 <main+0x46>
+            break;
+        case MODE_NIGHT:
+            state = night_mode(buttons, state);
+ 1ac:	61 e0       	ldi	r22, 0x01	; 1
+ 1ae:	0e 94 92 00 	call	0x124	; 0x124 <night_mode>
+ 1b2:	07 c0       	rjmp	.+14     	; 0x1c2 <main+0x46>
+            break;
+        case MODE_MANUAL:
+            state = manual_mode(buttons, state);
+ 1b4:	62 e0       	ldi	r22, 0x02	; 2
+ 1b6:	0e 94 a6 00 	call	0x14c	; 0x14c <manual_mode>
+ 1ba:	03 c0       	rjmp	.+6      	; 0x1c2 <main+0x46>
+            break;
+        case MODE_OFF:
+            state = off_mode(buttons, state);
+ 1bc:	63 e0       	ldi	r22, 0x03	; 3
+ 1be:	0e 94 88 00 	call	0x110	; 0x110 <off_mode>
+ 1c2:	18 2f       	mov	r17, r24
+ 1c4:	e2 cf       	rjmp	.-60     	; 0x18a <main+0xe>
+
+000001c6 <__divmodhi4>:
+ 1c6:	97 fb       	bst	r25, 7
+ 1c8:	09 2e       	mov	r0, r25
+ 1ca:	07 26       	eor	r0, r23
+ 1cc:	0a d0       	rcall	.+20     	; 0x1e2 <__divmodhi4_neg1>
+ 1ce:	77 fd       	sbrc	r23, 7
+ 1d0:	04 d0       	rcall	.+8      	; 0x1da <__divmodhi4_neg2>
+ 1d2:	0c d0       	rcall	.+24     	; 0x1ec <__udivmodhi4>
+ 1d4:	06 d0       	rcall	.+12     	; 0x1e2 <__divmodhi4_neg1>
+ 1d6:	00 20       	and	r0, r0
+ 1d8:	1a f4       	brpl	.+6      	; 0x1e0 <__divmodhi4_exit>
+
+000001da <__divmodhi4_neg2>:
+ 1da:	70 95       	com	r23
+ 1dc:	61 95       	neg	r22
+ 1de:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000001e0 <__divmodhi4_exit>:
+ 1e0:	08 95       	ret
+
+000001e2 <__divmodhi4_neg1>:
+ 1e2:	f6 f7       	brtc	.-4      	; 0x1e0 <__divmodhi4_exit>
+ 1e4:	90 95       	com	r25
+ 1e6:	81 95       	neg	r24
+ 1e8:	9f 4f       	sbci	r25, 0xFF	; 255
+ 1ea:	08 95       	ret
+
+000001ec <__udivmodhi4>:
+ 1ec:	aa 1b       	sub	r26, r26
+ 1ee:	bb 1b       	sub	r27, r27
+ 1f0:	51 e1       	ldi	r21, 0x11	; 17
+ 1f2:	07 c0       	rjmp	.+14     	; 0x202 <__udivmodhi4_ep>
+
+000001f4 <__udivmodhi4_loop>:
+ 1f4:	aa 1f       	adc	r26, r26
+ 1f6:	bb 1f       	adc	r27, r27
+ 1f8:	a6 17       	cp	r26, r22
+ 1fa:	b7 07       	cpc	r27, r23
+ 1fc:	10 f0       	brcs	.+4      	; 0x202 <__udivmodhi4_ep>
+ 1fe:	a6 1b       	sub	r26, r22
+ 200:	b7 0b       	sbc	r27, r23
+
+00000202 <__udivmodhi4_ep>:
+ 202:	88 1f       	adc	r24, r24
+ 204:	99 1f       	adc	r25, r25
+ 206:	5a 95       	dec	r21
+ 208:	a9 f7       	brne	.-22     	; 0x1f4 <__udivmodhi4_loop>
+ 20a:	80 95       	com	r24
+ 20c:	90 95       	com	r25
+ 20e:	bc 01       	movw	r22, r24
+ 210:	cd 01       	movw	r24, r26
+ 212:	08 95       	ret
+
+00000214 <_exit>:
+ 214:	f8 94       	cli
+
+00000216 <__stop_program>:
+ 216:	ff cf       	rjmp	.-2      	; 0x216 <__stop_program>
